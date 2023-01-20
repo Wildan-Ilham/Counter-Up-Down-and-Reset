@@ -15,29 +15,30 @@ void setup() {
   lcd.backlight();
   pinMode(pbupPin, INPUT);
   pinMode(pbdownPin, INPUT);
+  pinMode(pbresetPin,INPUT);
 }
 
 void loop() {
 
-  bool pbupState = digitalRead(pbupPin);
-  bool pbdownState = digitalRead(pbdownPin);
-  bool pbresetState = digitalRead(pbresetPin);
+  bool pbupState = digitalRead(pbupPin); //kondisi awal berniali 1(HIGH)
+  bool pbdownState = digitalRead(pbdownPin); //kondisi awal berniali 1(HIGH)
+  bool pbresetState = digitalRead(pbresetPin); //kondisi awal berniali 1(HIGH)
   
-  if (pbupState == ditekan) {
+  if (pbupState == ditekan) { //Jika push button bernilai 0(LOW) maka fungsi pbUp akan dieksekusi
     pbUp(holdBtn);
   }
 
-  if (pbdownState == ditekan) {
+  if (pbdownState == ditekan) {//Jika push button bernilai 0(LOW) maka fungsi pbDown akan dieksekusi
     pbDown(holdBtn);
   }
 
-  if(pbresetState == ditekan){
+  if(pbresetState == ditekan){//Jika push button bernilai 0(LOW) maka fungsi pbReset akan dieksekusi
     pbReset();
   }
 
 }
 
-void cetak(int a) {
+void cetak(int a) { //Menampilkan ke lcd
   lcd.clear();
   Serial.print("Counter : ");
   Serial.println(a);
@@ -47,8 +48,8 @@ void cetak(int a) {
   lcd.print(a);
 }
 
-void pbUp(bool a) {
-  if (a == 0) {
+void pbUp(bool a) { //counter up
+  if (a == 0) { 
     counter++;
     delay(500);
     cetak(counter);
@@ -58,7 +59,7 @@ void pbUp(bool a) {
   }
 }
 
-void pbDown(bool a) {
+void pbDown(bool a) { //counter down
   if (counter > 1) {
     counter--;
     delay(500);
@@ -69,7 +70,7 @@ void pbDown(bool a) {
   }
 }
 
-void pbReset() {
+void pbReset() { //counter reset
   counter = 0;
   delay(500);
   cetak(counter);
